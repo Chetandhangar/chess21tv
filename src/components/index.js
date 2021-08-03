@@ -1,1 +1,2 @@
-export {Home} from './HomeComponent'
+export {Home} from './HomeComponent';
+export {PlaylistDetails} from './Playlist/playlistDeails'

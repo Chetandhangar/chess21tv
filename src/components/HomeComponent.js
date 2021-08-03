@@ -9,6 +9,9 @@ export const Home = () =>{
             <div>
                 {PLAYLIST.map((video) =>(
                     <div key={video.id}>
+                        <a 
+                         href={`/home/${video.id}`}
+                        >
                           <img 
                           src={video.thumbnail}
                           />
@@ -22,6 +25,7 @@ export const Home = () =>{
                           <div>
                               {video.publishedDate}
                           </div>
+                            </a>
                           <hr/>
                     </div>
                 ))}
