@@ -1,13 +1,17 @@
 import {useData} from '../../context/data-context'
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import  ReactPlayer from 'react-player/youtube'
 
 function RenderVideo({video}){
     const {dispatch, watchedLaterPlaylist} = useData();
     console.log(watchedLaterPlaylist)
     return(
-        <div key={video.id}>
+        <div key={video.id} >
             <div>
-                <img src={video.thumbnail}/>
+              <ReactPlayer url={`https://www.youtube.com/watch?v=${video.id}`} 
+              playing={true}
+              controls
+              />
             </div>
             <div>
                 <img src={video.channelAvatar}/>   <h3>{video.title}</h3>    

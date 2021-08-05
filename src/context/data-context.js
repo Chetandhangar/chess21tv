@@ -9,12 +9,14 @@ export function DataProvider({children}){
     const [state, dispatch] = useReducer( reducerFunction, {
         PLAYLIST : PLAYLIST,
         watchedLaterPlaylist : [],
-        likeList : []
+        likeList : [],
+        watchHistory : []
     })
     return(
         <DataContext.Provider value={{PLAYLIST : state.PLAYLIST, dispatch, 
         watchedLaterPlaylist: state.watchedLaterPlaylist,
-        likeList : state.likeList}}>
+        likeList : state.likeList,
+        watchHistory : state.watchHistory}}>
             {children}
         </DataContext.Provider>
     )

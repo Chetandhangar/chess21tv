@@ -1,7 +1,8 @@
 const ADD_TO_WATCHED_LATER = "ADD_TO_WATCHED_LATER";
 const REMOVE_FROM_WATCHLIST = "REMOVE_FROM_WATCHLIST";
 const ADD_TO_LIKE = "ADD_TO_LIKE";
-const REMOVE_FROM_LIKE_LIST = "REMOVE_FROM_LIKE_LIST"
+const REMOVE_FROM_LIKE_LIST = "REMOVE_FROM_LIKE_LIST";
+const ADD_TO_WATCH_HISTORY = "ADD_TO_WATCH_HISTORY"
 
 export function reducerFunction(state, action){
     switch(action.type){
@@ -25,6 +26,12 @@ export function reducerFunction(state, action){
             return{
                 ...state,
                 likeList : removeFromList(state.likeList, action.payload)
+            }
+        
+        case ADD_TO_WATCH_HISTORY:
+            return{
+                ...state,
+                watchHistory : addToList(state.watchHistory , action.payload)
             }
 
         default : 
