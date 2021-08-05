@@ -14,6 +14,9 @@ export const Home = () =>{
               <nav>
                 <Link to='/likelist'> likelist</Link>      
               </nav>
+              <nav>
+                <Link to='/history'> History</Link>      
+              </nav>
           </div>
             <br />
             <br />

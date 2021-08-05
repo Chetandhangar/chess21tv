@@ -1,16 +1,28 @@
 import {useData} from '../../context/data-context'
 import {Link} from 'react-router-dom';
-import  ReactPlayer from 'react-player/youtube'
+import  ReactPlayer from 'react-player/youtube';
+import {checkHistory} from '../../utils/utils'
 
 function RenderVideo({video}){
-    const {dispatch, watchedLaterPlaylist} = useData();
-    console.log(watchedLaterPlaylist)
+    const {dispatch, watchedLaterPlaylist, watchHistory} = useData();
+    console.log(watchHistory, 'from history')
+
+    function handleWatchHistory(watchHistory, video){
+        if(checkHistory(watchHistory, video)){
+            return null;
+        }
+        else{
+            return dispatch({ type : "ADD_TO_WATCH_HISTORY" ,payload : video})
+        }
+    }
+
     return(
         <div key={video.id} >
             <div>
               <ReactPlayer url={`https://www.youtube.com/watch?v=${video.id}`} 
               playing={true}
               controls
+              onPlay={() => handleWatchHistory(watchHistory, video)}
               />
             </div>
             <div>

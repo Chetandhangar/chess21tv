@@ -1,6 +1,6 @@
 import './App.css';
 import { Home } from './components'
-import {PlaylistDetails, WatchLater, LikeList} from './components'
+import {PlaylistDetails, WatchLater, LikeList, WatchHistory} from './components'
 import { BrowserRouter as Router , Switch, Route, Redirect} from 'react-router-dom';
 import {useData} from './context/data-context'
 
@@ -27,6 +27,7 @@ function App(){
             <Route exact path='/home/:videoId' component={videoWithId}/>
             <Route exact path='/watchlater' component={WatchLater}/>
             <Route exact path='/likelist' component={LikeList}/>
+            <Route exact path='/history' component={WatchHistory}/>
             <Redirect to='/home'/>
           </Switch>
         </Router>
