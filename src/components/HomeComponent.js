@@ -1,17 +1,26 @@
 
 import { useData } from '../context/data-context'
-
+import {Link} from 'react-router-dom'
 export const Home = () =>{
-    const { PLAYLIST } = useData();
+    const { PLAYLIST, watchedLaterPlaylist} = useData();
     console.log(PLAYLIST)
+    console.log(watchedLaterPlaylist, 'from home watchlater')
     return (
         <div>
+          <div>
+              <nav>
+                <Link to='/watchlater'> Watch Later</Link>      
+              </nav>
+              <nav>
+                <Link to='/likelist'> likelist</Link>      
+              </nav>
+          </div>
+            <br />
+            <br />
             <div>
                 {PLAYLIST.map((video) =>(
                     <div key={video.id}>
-                        <a 
-                         href={`/home/${video.id}`}
-                        >
+                        <Link to={`home/${video.id}`}>
                           <img 
                           src={video.thumbnail}
                           />
@@ -25,8 +34,9 @@ export const Home = () =>{
                           <div>
                               {video.publishedDate}
                           </div>
-                            </a>
+                            </Link>
                           <hr/>
+                         
                     </div>
                 ))}
             </div>

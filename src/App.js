@@ -1,6 +1,6 @@
 import './App.css';
 import { Home } from './components'
-import {PlaylistDetails} from './components'
+import {PlaylistDetails, WatchLater, LikeList} from './components'
 import { BrowserRouter as Router , Switch, Route, Redirect} from 'react-router-dom';
 import {useData} from './context/data-context'
 
@@ -9,7 +9,6 @@ function App(){
   const {PLAYLIST} = useData()
 
   function videoWithId({match}){
-    console.log(match, 'from with if')
     return(
       <PlaylistDetails video={PLAYLIST.filter((video) => video.id === match.params.videoId)[0]}/>
     )
@@ -24,8 +23,11 @@ function App(){
       <div>
         <Router>
           <Switch>
-            <Route exact path='/' component={Home}/>
+            <Route exact path='/home' component={Home}/>
             <Route exact path='/home/:videoId' component={videoWithId}/>
+            <Route exact path='/watchlater' component={WatchLater}/>
+            <Route exact path='/likelist' component={LikeList}/>
+            <Redirect to='/home'/>
           </Switch>
         </Router>
        
