@@ -2,7 +2,8 @@ import {Link} from 'react-router-dom'
 import { useData } from '../../context/data-context'
 export  const WatchHistory = () =>{
 
-    const { watchHistory : HistoryPlaylist, dispatch} =  useData()
+    const { watchHistory : HistoryPlaylist, dispatch} =  useData();
+    
 
     return(
         <div>

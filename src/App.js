@@ -1,36 +1,25 @@
 import './App.css';
 import { Home } from './components'
-import {PlaylistDetails, WatchLater, LikeList, WatchHistory} from './components'
-import { BrowserRouter as Router , Switch, Route, Redirect} from 'react-router-dom';
-import {useData} from './context/data-context'
+import {PlaylistDetails, WatchLater, LikeList, WatchHistory, Header} from './components'
+import { Routes,Route} from 'react-router-dom';
+import {useData} from './context/data-context';
 
 function App(){
-
-  const {PLAYLIST} = useData()
-
-  function videoWithId({match}){
-    return(
-      <PlaylistDetails video={PLAYLIST.filter((video) => video.id === match.params.videoId)[0]}/>
-    )
-  }
-
-
   return (
     <div className="App">
       <div>
         <h1>Chess21 Tv</h1>
       </div>
       <div>
-        <Router>
-          <Switch>
-            <Route exact path='/home' component={Home}/>
-            <Route exact path='/home/:videoId' component={videoWithId}/>
-            <Route exact path='/watchlater' component={WatchLater}/>
-            <Route exact path='/likelist' component={LikeList}/>
-            <Route exact path='/history' component={WatchHistory}/>
-            <Redirect to='/home'/>
-          </Switch>
-        </Router>
+          <Header />
+          <Routes>
+          <Route exact path='/' element={<Home />}/>
+            <Route exact path='/home/:videolink' element={<PlaylistDetails />}/>
+            <Route exact path='/watchlater' element={<WatchLater />}/>
+            <Route exact path='/likelist' element={<LikeList/>}/>
+            <Route exact path='/history' element={<WatchHistory/>}/>
+          </Routes>
+        
        
       </div>
     </div>

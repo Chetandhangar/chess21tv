@@ -3,7 +3,8 @@ const REMOVE_FROM_WATCHLIST = "REMOVE_FROM_WATCHLIST";
 const ADD_TO_LIKE = "ADD_TO_LIKE";
 const REMOVE_FROM_LIKE_LIST = "REMOVE_FROM_LIKE_LIST";
 const ADD_TO_WATCH_HISTORY = "ADD_TO_WATCH_HISTORY";
-const REMOVE_FROM_WATCH_HISTORY = "REMOVE_FROM_WATCH_HISTORY"
+const REMOVE_FROM_WATCH_HISTORY = "REMOVE_FROM_WATCH_HISTORY";
+const CREATE_NEW_PLAYLIST = "CREATE_NEW_PLAYLIST"
 
 export function reducerFunction(state, action){
     switch(action.type){
@@ -39,6 +40,11 @@ export function reducerFunction(state, action){
             return{
                 ...state,
                 watchHistory : removeFromList(state.watchHistory, action.payload)
+            }
+        case CREATE_NEW_PLAYLIST:
+            return{
+                ...state,
+                playlist : [...state.playlist, {name : action.payload , list : []}]
             }
 
         default : 

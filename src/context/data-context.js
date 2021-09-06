@@ -10,13 +10,15 @@ export function DataProvider({children}){
         PLAYLIST : PLAYLIST,
         watchedLaterPlaylist : [],
         likeList : [],
-        watchHistory : []
+        watchHistory : [],
+        playlist : [{ name : 'myPlaylist' , list : []}]
     })
     return(
         <DataContext.Provider value={{PLAYLIST : state.PLAYLIST, dispatch, 
         watchedLaterPlaylist: state.watchedLaterPlaylist,
         likeList : state.likeList,
-        watchHistory : state.watchHistory}}>
+        watchHistory : state.watchHistory,
+        playlist : state.playlist}}>
             {children}
         </DataContext.Provider>
     )
