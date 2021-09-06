@@ -22,7 +22,7 @@ export const WatchLater = () =>{
     return (
         <div>
             <div>
-                <Link to='/home'>Home</Link>
+                <Link to='/'>Home</Link>
             </div>
             <br/>
             <br/>

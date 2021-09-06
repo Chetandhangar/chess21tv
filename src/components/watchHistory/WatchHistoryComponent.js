@@ -7,7 +7,7 @@ export  const WatchHistory = () =>{
 
     return(
         <div>
-            <Link to='/home'>Home</Link>
+            <Link to='/'>Home</Link>
             <div>
                 Watch History
             </div>

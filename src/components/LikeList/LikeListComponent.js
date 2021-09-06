@@ -6,7 +6,7 @@ export const LikeList = () =>{
  return(
      <div>
          <div>
-             <Link to='/home'>Back</Link>
+             <Link to='/'>Back</Link>
          </div>
          <div>
              LikeList
