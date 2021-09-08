@@ -1,25 +1,42 @@
+import {useEffect} from 'react'
 import {useData} from '../../context/data-context';
-import {Link} from 'react-router-dom';
-
+import axios from 'axios';
+import {useAuth} from '../../context/auth-context'
 export const LikeList = () =>{
-    const {likeList,dispatch} = useData()
- return(
+    const {likeList,dispatch,removeFromLikeVideo} = useData();
+    const {token} = useAuth();
+    console.log(token)
+    const userurl = "https://tv-chess21.chetandhangar.repl.co/user";
+   
+    useEffect(() => {
+        (async() => {
+            try{
+               const response = await axios.get(`${userurl}/likedvideos`,{
+                    headers : {authorization : token}
+                })
+               console.log(response,'from liked videos from server')
+               if(response.status === 200){
+                   dispatch({
+                       type : "UPDATE_LIKE_LIST",
+                       payload :response.data.likedvideos
+                   })
+               }
+            }catch(error){
+                console.log(error,'like error fetch');
+            }
+        })();
+    },[dispatch,token])
+ return( 
      <div>
-         <div>
-             <Link to='/'>Back</Link>
-         </div>
          <div>
              LikeList
          </div>
          <hr/>
          <div>
-            {likeList.map((video) =>(
-                <div key={video.id}>
+            {likeList?.map((video) =>(
+                <div key={video._id}>
                     <h1>{video.title}</h1>
-                    <button onClick={() => dispatch({
-                        type : "REMOVE_FROM_LIKE_LIST",
-                        payload : video
-                    })}>Remove From list</button>
+                    <button onClick={() => removeFromLikeVideo(video)}>Remove From list</button>
                 </div>
             ))}
          </div>

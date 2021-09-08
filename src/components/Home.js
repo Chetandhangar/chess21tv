@@ -2,30 +2,26 @@ import React from 'react';
 import {useVideo} from '../context/video-context'
 import { useData } from '../context/data-context'
 import {Link} from 'react-router-dom';
+
 export const Home = () =>{
-    const { PLAYLIST, watchedLaterPlaylist} = useData();
-    const {videos,error,loader} = useVideo();
+    const {watchedLaterPlaylist} = useData();
+    const {videos,loader} = useVideo();
     console.log(videos,'from videos')
     console.log(watchedLaterPlaylist, 'from home watchlater')
     return (
         <div>
-          <div>
-            
-          </div>
-            <br />
-            <br />
             <div>
                 {loader ? <p>Loading ...</p> :
                     <div>
                     {videos?.map((video) =>(
                     <div key={video.videolink}>
                         <Link to={`home/${video.videolink}`}>
-                            {console.log(video.videolink)}
                           <img 
                           src={video.thumbnail}
+                          alt="Thumbnail"
                           />
                           <div>  
-                          <img src={video.channelAvatar}/>
+                          <img src={video.channelAvatar} alt="ChannelAvatar"/>
                           <h4>{video.title}</h4>
                           </div>
                           <div>

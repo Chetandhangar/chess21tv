@@ -13,7 +13,7 @@ function RenderVideo({video}){
     const [modalIsOpen,setModalIsOpen] = useState(false);
     const [playlistInput , setPlaylistInput] = useState("")
 
-    const {dispatch, watchHistory, playlist} = useData();
+    const {dispatch, watchHistory, playlist,addToLikeVideo} = useData();
     function handleWatchHistory(watchHistory, video){
         if(checkHistory(watchHistory, video)){
            return null;
@@ -48,16 +48,13 @@ function RenderVideo({video}){
                />
             </div>
             <div>
-                <img src={video.channelAvatar}/>   <h3>{video.title}</h3>    
+                <img src={video.channelAvatar} alt={video.title}/>   <h3>{video.title}</h3>    
             </div>
             <div>
                 <h5>{video.publishedDate}</h5>
             </div>
             <div>
-            <button onClick={() => dispatch({
-                type : "ADD_TO_LIKE",
-                payload : video
-            })}>like</button>
+            <button onClick={() => addToLikeVideo(video)}>like</button>
             {" "}
             <button onClick={() => dispatch({
                 type : "ADD_TO_WATCHED_LATER",

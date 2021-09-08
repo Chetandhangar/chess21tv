@@ -5,9 +5,14 @@ const REMOVE_FROM_LIKE_LIST = "REMOVE_FROM_LIKE_LIST";
 const ADD_TO_WATCH_HISTORY = "ADD_TO_WATCH_HISTORY";
 const REMOVE_FROM_WATCH_HISTORY = "REMOVE_FROM_WATCH_HISTORY";
 const CREATE_NEW_PLAYLIST = "CREATE_NEW_PLAYLIST"
-
+const UPDATE_LIKE_LIST = "UPDATE_LIKE_LIST"
 export function reducerFunction(state, action){
     switch(action.type){
+        case UPDATE_LIKE_LIST : 
+        return{
+            ...state,
+            likeList : [...action.payload]
+        }
         case  ADD_TO_WATCHED_LATER:
             console.log("calling me in reduer add watch later")
             return{
@@ -22,7 +27,7 @@ export function reducerFunction(state, action){
         case ADD_TO_LIKE :
             return{
                 ...state,
-                likeList  : addToList(state.likeList, action.payload)
+                likeList  : [...state.likeList, action.payload]
             }
         case REMOVE_FROM_LIKE_LIST:
             return{
@@ -55,11 +60,11 @@ export function reducerFunction(state, action){
 } 
 
 export function removeFromList(Playlist,video){
-    return Playlist.filter((item) => item.id !== video.id)
+    return Playlist?.filter((item) => item?._id !== video._id)
 }
 
 export function addToList(Playlist, video){
-    let ind = Playlist.findIndex((item) => item._id === video._id)
+    let ind = Playlist?.findIndex((item) => item._id === video._id)
     if(ind === -1){
         return [...Playlist, video]
     }

@@ -1,31 +1,10 @@
 import { useData} from '../../context/data-context'
-import {  Link } from 'react-router-dom'
-/*export function RenderWatchLaterVideo(playList){
-    return(
-        <div>
-            <div>
-                {playList.map((video) =>(
-                    <div key={video.id}>
-                        <div>
-                            <img src={video.thumbnail}/>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    )
-}
-*/
+
 export const WatchLater = () =>{
     const {watchedLaterPlaylist , dispatch} = useData()
     console.log(watchedLaterPlaylist, 'from watch later list ')
     return (
         <div>
-            <div>
-                <Link to='/'>Home</Link>
-            </div>
-            <br/>
-            <br/>
             <div>
                 {watchedLaterPlaylist.map((video) =>(
                     <div key={video.id}>
@@ -41,4 +20,3 @@ export const WatchLater = () =>{
     )
   
 }
-//<RenderWatchLaterVideo watchedLaterPlaylist={watchedLaterPlaylist}/>
