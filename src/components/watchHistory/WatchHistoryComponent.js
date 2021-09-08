@@ -1,24 +1,43 @@
-import {Link} from 'react-router-dom'
+import {useEffect} from 'react'
 import { useData } from '../../context/data-context'
-export  const WatchHistory = () =>{
+import axios from "axios";
+import {useAuth} from '../../context/auth-context';
 
-    const { watchHistory : HistoryPlaylist, dispatch} =  useData();
+export  const WatchHistory = () =>{
+    const { watchHistory : HistoryPlaylist, dispatch, removeFromWatchHistory} =  useData();
+    const {token} = useAuth();
+    const userurl = "https://tv-chess21.chetandhangar.repl.co/user";
+    useEffect(() => {
+        (async() => {
+            try{
+                const response = await axios.get(`${userurl}/watchhistory`,{
+                    headers : {authorization : token}
+                })
+                console.log(response,'from server watchhistory')
+                if(response.status === 200){
+                    dispatch({
+                        type : "UPDATE_WATCH_HISTORY",
+                        payload : response.data.watchhistory
+                    })
+                }
+            }catch(error){
+                console.log(error)
+            }
+            
+        })()
+    },[token,dispatch])
     
 
     return(
         <div>
-            <Link to='/'>Home</Link>
             <div>
                 Watch History
             </div>
             <div>
-                {HistoryPlaylist.map((video) =>(
+                {HistoryPlaylist?.map((video) =>(
                     <div key ={video.id}>
                         <h1>{video.title}</h1>
-                        <button onClick={() => dispatch({
-                            type : "REMOVE_FROM_WATCH_HISTORY",
-                            payload : video
-                        })}>Remove From List</button>
+                        <button onClick={() => removeFromWatchHistory(video)}>Remove From List</button>
                     </div>
                 ))}
             </div>

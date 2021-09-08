@@ -13,13 +13,13 @@ function RenderVideo({video}){
     const [modalIsOpen,setModalIsOpen] = useState(false);
     const [playlistInput , setPlaylistInput] = useState("")
 
-    const {dispatch, watchHistory, playlist,addToLikeVideo} = useData();
+    const {dispatch, watchHistory, playlist,addToLikeVideo, addToWatchLater,addToWatchHistory} = useData();
     function handleWatchHistory(watchHistory, video){
         if(checkHistory(watchHistory, video)){
            return null;
     }
         else{
-            return dispatch({ type : "ADD_TO_WATCH_HISTORY" ,payload : video})
+            return addToWatchHistory(video)
         }
  
     }
@@ -56,10 +56,7 @@ function RenderVideo({video}){
             <div>
             <button onClick={() => addToLikeVideo(video)}>like</button>
             {" "}
-            <button onClick={() => dispatch({
-                type : "ADD_TO_WATCHED_LATER",
-                payload : video
-            })}>Watched Later</button>
+            <button onClick={() =>addToWatchLater(video)}>Watched Later</button>
             </div>
             <button onClick={() => setModalIsOpen(true)}>add To Playlist</button>
             { " "}

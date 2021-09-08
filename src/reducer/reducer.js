@@ -5,13 +5,25 @@ const REMOVE_FROM_LIKE_LIST = "REMOVE_FROM_LIKE_LIST";
 const ADD_TO_WATCH_HISTORY = "ADD_TO_WATCH_HISTORY";
 const REMOVE_FROM_WATCH_HISTORY = "REMOVE_FROM_WATCH_HISTORY";
 const CREATE_NEW_PLAYLIST = "CREATE_NEW_PLAYLIST"
-const UPDATE_LIKE_LIST = "UPDATE_LIKE_LIST"
+const UPDATE_LIKE_LIST = "UPDATE_LIKE_LIST";
+const UPDATE_WATCH_LATER = "UPDATE_WATCH_LATER";
+const UPDATE_WATCH_HISTORY = "UPDATE_WATCH_HISTORY"
 export function reducerFunction(state, action){
     switch(action.type){
         case UPDATE_LIKE_LIST : 
         return{
             ...state,
             likeList : [...action.payload]
+        }
+        case UPDATE_WATCH_LATER : 
+        return{
+            ...state,
+            watchedLaterPlaylist : [...action.payload]
+        }
+        case UPDATE_WATCH_HISTORY : 
+        return{
+            ...state,
+            watchHistory : [...action.payload]
         }
         case  ADD_TO_WATCHED_LATER:
             console.log("calling me in reduer add watch later")

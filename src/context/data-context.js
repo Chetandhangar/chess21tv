@@ -48,12 +48,79 @@ export function DataProvider({children}){
             console.log(error);
         }
     }
+
+    async function addToWatchLater(video){
+        try{
+            const response = await axios.post(`${userurl}/watchlater`,
+            {videoId : video._id},
+            {headers : {authorization : token}})
+            console.log(response,'from add watch later')
+            if(response.status === 200){
+                dispatch({
+                    type : "ADD_TO_WATCHED_LATER",
+                    payload : video
+                })
+            }
+        }catch(error){
+            console.log(error);
+        }
+    }
+    async function removeFromWatchLater(video){
+        try{
+            const response = await axios.post(`${userurl}/removewatchlater`,
+                {videoId : video._id},
+                {headers : {authorization : token}})
+            console.log(response,'from remove server')
+            if(response.status === 200){
+                dispatch({
+                    type : "REMOVE_FROM_WATCHLIST",
+                    payload : video
+                })
+            }
+        }catch(error){
+            console.log(error);
+        }
+    }
+    async function addToWatchHistory(video){
+        try{
+            const response = await axios.post(`${userurl}/watchhistory`,
+            {videoId : video._id},
+            {headers : {authorization : token}})
+            console.log(response,'from watch history')
+            if(response.status === 200){
+                dispatch({
+                    type : "ADD_TO_WATCH_HISTORY",
+                    payload : video
+                })
+            }
+        }catch(error){
+            console.log(error);
+        }
+    }
+    async function removeFromWatchHistory(video){
+        try{
+            const response = await axios.post(`${userurl}/removewatchhistory`,
+                {videoId : video._id},
+                {headers : {authorization : token}})
+            console.log(response,'from history remove server')
+            if(response.status === 200){
+                dispatch({
+                    type : "REMOVE_FROM_WATCH_HISTORY",
+                    payload : video
+                })
+            }
+        }catch(error){
+            console.log(error);
+        }
+    }
     console.log(state.likeList,'from state likelist')
     return(
         <DataContext.Provider value={{
         dispatch, 
         addToLikeVideo,
         removeFromLikeVideo,
+        addToWatchHistory,removeFromWatchHistory,
+        addToWatchLater,removeFromWatchLater,
         watchedLaterPlaylist: state.watchedLaterPlaylist,
         likeList : state.likeList,
         watchHistory : state.watchHistory,
