@@ -7,16 +7,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { DataProvider } from './context/data-context';
 import {VideoProvider} from './context/video-context';
-import {BrowserRouter as Router} from 'react-router-dom'
-
+import {BrowserRouter as Router} from 'react-router-dom';
+import {AuthProvider} from './context/auth-context'
 ReactDOM.render(
   <React.StrictMode>
     <Router>
+      <AuthProvider>
       <DataProvider>
         <VideoProvider>
           <App />
         </VideoProvider>
       </DataProvider>
+      </AuthProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')

@@ -59,7 +59,7 @@ export function removeFromList(Playlist,video){
 }
 
 export function addToList(Playlist, video){
-    let ind = Playlist.findIndex((item) => item.id === video.id)
+    let ind = Playlist.findIndex((item) => item._id === video._id)
     if(ind === -1){
         return [...Playlist, video]
     }

@@ -96,9 +96,6 @@ function RenderVideo({video}){
             </div> 
           
             </div>
-              
-            
-
             </Modal>
         </div>
     )
