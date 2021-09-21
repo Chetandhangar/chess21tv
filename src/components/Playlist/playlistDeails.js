@@ -1,19 +1,61 @@
 import {useData} from '../../context/data-context'
-import {Link} from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import {checkHistory} from '../../utils/utils'
-import Modal from 'react-modal';
 import { useState } from 'react';
 import {useParams} from 'react-router-dom';
-import {useVideo} from '../../context/video-context'
+import {useVideo} from '../../context/video-context';
+import WatchLaterIcon from '@material-ui/icons/WatchLater';
+import {makeStyles} from '@material-ui/core/styles';
+import {Container, Grid ,Card,CardHeader,Avatar,CardContent,CssBaseline,Collapse,Typography,
+ IconButton,CardActions} from '@material-ui/core';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import WatchLaterOutlinedIcon from '@material-ui/icons/WatchLaterOutlined';
+import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import clsx from 'clsx';
+
+
+
+
+export const useStyles = makeStyles((theme) => ({
+    productContainer : {
+        marginTop : "3rem"
+    },
+    root: {
+        maxWidth: 345,
+      },
+      media: {
+        height: 0,
+        paddingTop: '56.25%', // 16:9
+      },
+      expand: {
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+          duration: theme.transitions.duration.shortest,
+        }),
+      },
+      expandOpen: {
+        transform: 'rotate(180deg)',
+      },
+      avatar: {
+        backgroundColor: ""
+      },
+      paper: {
+        marginTop: theme.spacing(4),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      },
+}))
+
 
 function RenderVideo({video}){
     console.log(video,'from prop pass as video to render')
     console.log("render",video)
-    const [modalIsOpen,setModalIsOpen] = useState(false);
-    const [playlistInput , setPlaylistInput] = useState("")
-
-    const {dispatch, watchHistory, playlist,addToLikeVideo, addToWatchLater,addToWatchHistory} = useData();
+    const classes = useStyles();
+    const { watchHistory,addToLikeVideo, addToWatchLater,addToWatchHistory} = useData();
+    
     function handleWatchHistory(watchHistory, video){
         if(checkHistory(watchHistory, video)){
            return null;
@@ -24,74 +66,71 @@ function RenderVideo({video}){
  
     }
 
-    function closeModal(){
-        setModalIsOpen(false)
-    }
+    const [expanded, setExpanded] = useState(false);
 
-    function setHandleInputChange(event){
-      
-        setPlaylistInput(event.target.value)
-        
-    }
+    const handleExpandClick = () => {
+      setExpanded(!expanded);
+    };
+
+   
    
     return(
-        <div key={video?.videolink}>
-            {console.log(video,video.videolink,'where link lost')}
-            <div>
-            <ReactPlayer
-                  width='100%'
-                  height='360px'
+        <Container component="main">
+            <CssBaseline>
+                <div className={classes.paper}>
+                 <Grid item xs={12} md={6}  style={{marginTop : "2rem"}}>
+                 <Card className={classes.root}>
+                 <ReactPlayer
+                  width={classes.root}
+                  height='300px'
                   controls
                   playing={true}
                   url={`https://www.youtube.com/watch?v=${video?.videolink}`}
                   onPlay={() => handleWatchHistory(watchHistory,video)}
-               />
-            </div>
-            <div>
-                <img src={video.channelAvatar} alt={video.title}/>   <h3>{video.title}</h3>    
-            </div>
-            <div>
-                <h5>{video.publishedDate}</h5>
-            </div>
-            <div>
-            <button onClick={() => addToLikeVideo(video)}>like</button>
-            {" "}
-            <button onClick={() =>addToWatchLater(video)}>Watched Later</button>
-            </div>
-            <button onClick={() => setModalIsOpen(true)}>add To Playlist</button>
-            { " "}
-            <Modal
-             isOpen={modalIsOpen}
-             onRequestClose={closeModal}
-             contentLabel="Example Modal"
-            >
-            <h1>Modal Header</h1>
-            <button onClick={closeModal}>Close</button>
-            <div>
-            <div>
-            {
-                playlist.map((playlist) =>(
-                    <div>
-                        <button>{playlist.name}</button> 
-                      
-                    </div>
-                ))
-                }
-            </div>
-            <div>
-                <input 
-                value={playlistInput}
-                onChange={setHandleInputChange}/>
-           
-            <button onClick={() => dispatch({
-                type : "CREATE_NEW_PLAYLIST",
-                payload : playlistInput
-            })}>Create</button>
-            </div> 
-          
-            </div>
-            </Modal>
-        </div>
+                />
+                 <CardHeader
+                       avatar={
+                       <Avatar aria-label="recipe" className={classes.avatar}>
+                         <img src={video?.channelAvatar} alt="Avatar"/>
+                       </Avatar>
+                       }
+                       title={video?.channelName}
+                       subheader={video?.title}
+                   />
+                   <CardContent>
+                        <CardActions  disableSpacing>
+                            <IconButton 
+                            onClick={() => addToLikeVideo(video)}
+                            >
+                                <ThumbUpIcon  />
+                            </IconButton>
+                            <IconButton onClick={() => addToWatchLater(video)}>
+                                <WatchLaterIcon />
+                            </IconButton>
+                            <IconButton
+                                className={clsx(classes.expand, {
+                                    [classes.expandOpen]: expanded,
+                                })}
+                                onClick={handleExpandClick}
+                                aria-expanded={expanded}
+                                aria-label="show more"
+                                >
+                                <ExpandMoreIcon />
+                            </IconButton>
+                        </CardActions>
+                        <Collapse in={expanded} timeout="auto" unmountOnExit>
+                        <Typography paragraph>
+                            {video?.description}
+                        </Typography>
+                        </Collapse>
+                   </CardContent>
+                  
+                 </Card>
+                </Grid>
+                </div>
+            </CssBaseline>
+        
+        </Container>
     )
 }
 
@@ -103,9 +142,6 @@ export const  PlaylistDetails = (props) => {
     if(currentvideo !== null) 
     return(
         <div>
-            <div>
-                <Link to='/'>Home</Link>
-            </div>
             <div>
                 <RenderVideo video={currentvideo} />
             </div>
