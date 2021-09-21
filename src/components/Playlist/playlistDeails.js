@@ -13,7 +13,7 @@ import WatchLaterOutlinedIcon from '@material-ui/icons/WatchLaterOutlined';
 import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
-
+import {checkLikes,checkWatchLater} from '../../utils/utils'
 
 
 
@@ -54,7 +54,8 @@ function RenderVideo({video}){
     console.log(video,'from prop pass as video to render')
     console.log("render",video)
     const classes = useStyles();
-    const { watchHistory,addToLikeVideo, addToWatchLater,addToWatchHistory} = useData();
+    const { watchHistory,addToLikeVideo, addToWatchLater,addToWatchHistory,likeList,
+        watchedLaterPlaylist , removeFromLikeVideo,removeFromWatchLater} = useData();
     
     function handleWatchHistory(watchHistory, video){
         if(checkHistory(watchHistory, video)){
@@ -99,14 +100,36 @@ function RenderVideo({video}){
                    />
                    <CardContent>
                         <CardActions  disableSpacing>
-                            <IconButton 
-                            onClick={() => addToLikeVideo(video)}
-                            >
-                                <ThumbUpIcon  />
-                            </IconButton>
+                            {!checkLikes({likeList, videoId : video?._id}) ? (
+                                 <IconButton 
+                                 onClick={() => addToLikeVideo(video)}
+                                 >
+                                <ThumbUpOutlinedIcon  />
+                                 </IconButton>
+                            )
+                                :
+                                (
+                                    <IconButton 
+                                    onClick={() => removeFromLikeVideo(video)}
+                                    >
+                                    <ThumbUpIcon  />
+                                    </IconButton>
+                                )
+                            }
+
+                            {!checkWatchLater({watchedLaterPlaylist, videoId : video?._id}) ?
+                            (
                             <IconButton onClick={() => addToWatchLater(video)}>
+                                <WatchLaterOutlinedIcon />
+                            </IconButton> 
+                            ) :
+                            (
+                            <IconButton onClick={() =>removeFromWatchLater(video)}>
                                 <WatchLaterIcon />
                             </IconButton>
+                            )   
+                        }
+                           
                             <IconButton
                                 className={clsx(classes.expand, {
                                     [classes.expandOpen]: expanded,
