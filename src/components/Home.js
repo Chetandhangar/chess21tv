@@ -1,12 +1,11 @@
-import React,{useState} from 'react';
+import React from 'react';
 import {useVideo} from '../context/video-context'
 import { useData } from '../context/data-context'
 import {Link} from 'react-router-dom';
-import clsx from 'clsx';
 import {Container, Grid ,Card,CardHeader,Avatar,CardMedia,CardContent,Typography,
-   Collapse ,IconButton,CardActions} from '@material-ui/core';
+  CardActions} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 
 export const useStyles = makeStyles((theme) => ({
     productContainer : {
@@ -40,11 +39,7 @@ export const Home = () =>{
     console.log(videos,'from videos')
     console.log(watchedLaterPlaylist, 'from home watchlater');
     const classes = useStyles();
-    const [expanded, setExpanded] = useState(false);
   
-    const handleExpandClick = () => {
-      setExpanded(!expanded);
-    };
 
     return (
        <Container component="main" className={classes.productContainer}>
@@ -75,22 +70,7 @@ export const Home = () =>{
                         <Typography variant="body2" color="textSecondary" component="p">
                           {video?.publishedDate}
                         </Typography>
-                        <IconButton
-                          className={clsx(classes.expand, {
-                            [classes.expandOpen]: expanded,
-                          })}
-                          onClick={handleExpandClick}
-                          aria-expanded={expanded}
-                          aria-label="show more"
-                        >
-                          <ExpandMoreIcon />
-                        </IconButton>
                         </CardActions>
-                        <Collapse in={expanded} timeout="auto" unmountOnExit>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                          {video?.description}
-                        </Typography>
-                        </Collapse>
                         </CardContent>
                     </Card>
                     </Grid>

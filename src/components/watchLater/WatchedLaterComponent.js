@@ -2,11 +2,11 @@ import React,{useEffect,useState} from 'react';
 import { useData} from '../../context/data-context';
 import {useAuth} from '../../context/auth-context'
 import axios from 'axios';
-import clsx from 'clsx';
+
 import {Container, Grid ,Card,CardHeader,Avatar,CardMedia,CardContent,Typography,
-   Collapse ,IconButton,CardActions} from '@material-ui/core';
+  IconButton,CardActions} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 import {Link} from 'react-router-dom';
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -44,11 +44,6 @@ export const WatchLater = () =>{
     const userurl = "https://tv-chess21.chetandhangar.repl.co/user";
 
     const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(false);
-  
-    const handleExpandClick = () => {
-      setExpanded(!expanded);
-    };
 
     useEffect(() => {
         (async() => {
@@ -94,7 +89,7 @@ export const WatchLater = () =>{
                       <CardMedia
                          className={classes.media}
                          image={video?.thumbnail}
-                         title="Paella dish"
+                         title="Thumbnai"
                      />
                     </Link>
                      <CardContent>
@@ -104,22 +99,7 @@ export const WatchLater = () =>{
                      >
                         <DeleteIcon style={{ color: "red"}} />
                      </IconButton>
-                     <IconButton
-                         className={clsx(classes.expand, {
-                             [classes.expandOpen]: expanded,
-                         })}
-                         onClick={handleExpandClick}
-                         aria-expanded={expanded}
-                         aria-label="show more"
-                         >
-                         <ExpandMoreIcon />
-                     </IconButton>
                      </CardActions>
-                     <Collapse in={expanded} timeout="auto" unmountOnExit>
-                     <Typography variant="body2" color="textSecondary" component="p">
-                       {video?.description}
-                     </Typography>
-                     </Collapse>
                      </CardContent>
                  </Card>
                  </Grid>
