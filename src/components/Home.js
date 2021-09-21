@@ -52,8 +52,9 @@ export const Home = () =>{
                 {loader && <p>Loading...</p>}
                 {videos?.map((video) =>(
                     <Grid item key={video?.videolink} xs={12} sm={6} md={4}>
-                        <Link to={`home/${video.videolink}`}>
+                       
                         <Card className={classes.root}>
+                        <Link to={`home/${video.videolink}`}>
                         <CardHeader
                             avatar={
                             <Avatar aria-label="recipe" className={classes.avatar}>
@@ -68,20 +69,21 @@ export const Home = () =>{
                             image={video?.thumbnail}
                             title="Paella dish"
                         />
+                        </Link>
                         <CardContent>
                         <CardActions  disableSpacing>
                         <Typography variant="body2" color="textSecondary" component="p">
                           {video?.publishedDate}
                         </Typography>
                         <IconButton
-                            className={clsx(classes.expand, {
-                                [classes.expandOpen]: expanded,
-                            })}
-                            onClick={handleExpandClick}
-                            aria-expanded={expanded}
-                            aria-label="show more"
-                            >
-                            <ExpandMoreIcon />
+                          className={clsx(classes.expand, {
+                            [classes.expandOpen]: expanded,
+                          })}
+                          onClick={handleExpandClick}
+                          aria-expanded={expanded}
+                          aria-label="show more"
+                        >
+                          <ExpandMoreIcon />
                         </IconButton>
                         </CardActions>
                         <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -91,7 +93,6 @@ export const Home = () =>{
                         </Collapse>
                         </CardContent>
                     </Card>
-                    </Link>
                     </Grid>
                 ))}
            </Grid>
