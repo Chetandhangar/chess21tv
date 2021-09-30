@@ -2,8 +2,7 @@ import React from 'react';
 import {useVideo} from '../context/video-context'
 import { useData } from '../context/data-context'
 import {Link} from 'react-router-dom';
-import {Container, Grid ,Card,CardHeader,Avatar,CardMedia,CardContent,Typography,
-  CardActions} from '@material-ui/core';
+import {Container, Grid ,Card,CardHeader,Avatar,CardMedia} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 
 
@@ -50,7 +49,12 @@ export const Home = () =>{
                        
                         <Card className={classes.root}>
                         <Link to={`home/${video.videolink}`}>
-                        <CardHeader
+                         <CardMedia
+                            className={classes.media}
+                            image={video?.thumbnail}
+                            title="Paella dish"
+                        />
+                         <CardHeader
                             avatar={
                             <Avatar aria-label="recipe" className={classes.avatar}>
                               <img src={video?.channelAvatar} alt="Avatar"/>
@@ -59,19 +63,7 @@ export const Home = () =>{
                             title={video?.channelName}
                             subheader={video?.title}
                         />
-                         <CardMedia
-                            className={classes.media}
-                            image={video?.thumbnail}
-                            title="Paella dish"
-                        />
                         </Link>
-                        <CardContent>
-                        <CardActions  disableSpacing>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                          {video?.publishedDate}
-                        </Typography>
-                        </CardActions>
-                        </CardContent>
                     </Card>
                     </Grid>
                 ))}
