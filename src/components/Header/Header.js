@@ -17,7 +17,8 @@ import Home from '@material-ui/icons/Home';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom';
+import Tooltip from '@material-ui/core/Tooltip';
 
 export const Header = () =>{
   const {isUserLogin , logout}  = useAuth()
@@ -163,6 +164,7 @@ export const Header = () =>{
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+          <Tooltip title="History">
              <Link to="/history"  style={{color : "white"}}>
                 <IconButton aria-label="show history" color="inherit">
                 <Badge badgeContent={4} color="secondary">
@@ -170,6 +172,8 @@ export const Header = () =>{
                 </Badge>
                 </IconButton>
             </Link>
+            </Tooltip>
+            <Tooltip title="Watch Later">
             <Link to="/watchlater"  style={{color : "white"}}>
                 <IconButton aria-label="show watch later" color="inherit">
                 <Badge badgeContent={4} color="secondary">
@@ -177,6 +181,8 @@ export const Header = () =>{
                 </Badge>
                 </IconButton>
             </Link>
+            </Tooltip>
+            <Tooltip title="Like Videos">
             <Link to="/likevideos"  style={{color : "white"}}>
                 <IconButton aria-label="show history" color="inherit">
                 <Badge badgeContent={4} color="secondary">
@@ -184,6 +190,8 @@ export const Header = () =>{
                 </Badge>
                 </IconButton>
             </Link>
+            </Tooltip>
+            <Tooltip title="Profile">
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -194,6 +202,7 @@ export const Header = () =>{
             >
               <AccountCircle />
             </IconButton>
+            </Tooltip>
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
