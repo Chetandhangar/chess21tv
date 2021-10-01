@@ -19,9 +19,11 @@ import Menu from '@material-ui/core/Menu';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import {useNavigate} from 'react-router-dom';
 import Tooltip from '@material-ui/core/Tooltip';
+import {useData} from '../../context/data-context'
 
 export const Header = () =>{
-  const {isUserLogin , logout}  = useAuth()
+  const {isUserLogin , logout}  = useAuth();
+  const {likeList, watchedLaterPlaylist,  watchHistory } = useData();
   const classes = useStyles();
   const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = useState(null);
@@ -90,7 +92,7 @@ export const Header = () =>{
      <MenuItem>
      <Link to="/history" style={{color : "black", cursor : "pointer"}}>
                 <IconButton aria-label="show history" color="inherit">
-                <Badge badgeContent={4} color="secondary">
+                <Badge badgeContent={`${watchHistory?.length}`} color="secondary">
                     <HistoryIcon/>
                 </Badge>
                 </IconButton>
@@ -100,7 +102,7 @@ export const Header = () =>{
      <MenuItem>
      <Link to="/watchlater"  style={{color : "black", cursor : "pointer"}}>
                 <IconButton aria-label="show watch later" color="inherit">
-                <Badge badgeContent={4} color="secondary">
+                <Badge badgeContent={`${watchedLaterPlaylist?.length}`} color="secondary">
                     <WatchLaterIcon/>
                 </Badge>
                 </IconButton>
@@ -110,7 +112,7 @@ export const Header = () =>{
      <MenuItem>
      <Link to="/likevideos"  style={{color : "black"}}>
                 <IconButton aria-label="show history" color="inherit">
-                <Badge badgeContent={4} color="secondary">
+                <Badge badgeContent={`${likeList?.length}`} color="secondary">
                     <ThumbUpIcon />
                 </Badge>
                 </IconButton>
@@ -167,7 +169,7 @@ export const Header = () =>{
           <Tooltip title="History">
              <Link to="/history"  style={{color : "white"}}>
                 <IconButton aria-label="show history" color="inherit">
-                <Badge badgeContent={4} color="secondary">
+                <Badge badgeContent={`${ watchHistory?.length }`} color="secondary">
                     <HistoryIcon/>
                 </Badge>
                 </IconButton>
@@ -176,7 +178,7 @@ export const Header = () =>{
             <Tooltip title="Watch Later">
             <Link to="/watchlater"  style={{color : "white"}}>
                 <IconButton aria-label="show watch later" color="inherit">
-                <Badge badgeContent={4} color="secondary">
+                <Badge badgeContent={`${watchedLaterPlaylist?.length}`} color="secondary">
                     <WatchLaterIcon/>
                 </Badge>
                 </IconButton>
@@ -185,7 +187,7 @@ export const Header = () =>{
             <Tooltip title="Like Videos">
             <Link to="/likevideos"  style={{color : "white"}}>
                 <IconButton aria-label="show history" color="inherit">
-                <Badge badgeContent={4} color="secondary">
+                <Badge badgeContent={`${likeList?.length}`} color="secondary">
                     <ThumbUpIcon />
                 </Badge>
                 </IconButton>

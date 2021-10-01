@@ -22,10 +22,10 @@ export const useStyles = makeStyles((theme) => ({
         marginTop : "3rem"
     },
     root: {
-        maxWidth: 345,
+        maxWidth: 650,
       },
       media: {
-        height: 0,
+        height: 650,
         paddingTop: '56.25%', // 16:9
       },
       expand: {
@@ -82,7 +82,7 @@ function RenderVideo({video}){
                  <Grid item xs={12} md={6}  style={{marginTop : "2rem"}}>
                  <Card className={classes.root}>
                  <ReactPlayer
-                  width={classes.root}
+                  width="100%"
                   height='300px'
                   controls
                   playing={true}
