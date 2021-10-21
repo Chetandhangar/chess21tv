@@ -6,9 +6,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
-import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import HistoryIcon from '@material-ui/icons/History';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
@@ -151,19 +149,7 @@ export const Header = () =>{
           <Typography className={classes.title} variant="h6" noWrap>
             TV-Chess21
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search Videos"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
+       
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
           <Tooltip title="History">
